@@ -8,6 +8,8 @@ target 'khanh_demo_login' do
 
   use_react_native!(:path => config["reactNativePath"])
 
+  pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
+
   target 'khanh_demo_loginTests' do
     inherit! :complete
     # Pods for testing

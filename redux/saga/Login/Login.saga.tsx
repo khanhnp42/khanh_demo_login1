@@ -15,21 +15,6 @@ export function* loginSaga(action: any) {
         password: action.data.password,
       },
     });
-    // var username = action.data.username;
-    // var password = action.data.password;
-    // const data = yield call(axios.request, {
-    //   url: getUrl,
-    //   method: 'GET',
-    // });
-    // console.log('vui', data);
-    // for (let i = 0; i < dummyData.length; i++) {
-    //   if (username === dummyData[i].userName) {
-    //     console.log('vui');
-    //     if (password === dummyData[i].passWord) {
-    //       console.log('vui');
-    //     }
-    //   }
-    // }
     if (data) {
       AsyncStorage.setItem('token', data.data.token);
       yield put(LoginSuccessed(data.data.token));

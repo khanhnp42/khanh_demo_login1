@@ -6,6 +6,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#00FFFF',
   },
+  text_login: {
+    width: 300,
+    fontSize: 28,
+    textAlign: 'center',
+    padding: 20,
+  },
+  button: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 22,
+  },
   input: {
     width: 200,
     height: 44,
