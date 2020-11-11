@@ -31,6 +31,7 @@ const findIDmax = (obj: any) => {
   for (let i = 0; i < obj.length - 1; i++) {
     element = obj[i].id > obj[i + 1].id ? obj[i].id : obj[i + 1].id;
   }
+  // eslint-disable-next-line radix
   return parseInt(element) + 1;
 };
 
