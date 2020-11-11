@@ -1,5 +1,4 @@
 import {View, Text, TouchableOpacity} from 'react-native';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, {useState} from 'react';
 import {TextInput} from 'react-native-gesture-handler';
 import {useSelector, useDispatch} from 'react-redux';
@@ -21,7 +20,11 @@ const AddEdit = () => {
   const [stateTitle, setStateTitle] = useState(title);
   const [stateColor, setStateColor] = useState(color);
   const onClickOk = () => {
-    if (stateTitle === '' && stateColor === '') {
+    if (
+      (stateTitle === '' && stateColor === '') ||
+      title === stateTitle ||
+      color === stateColor
+    ) {
       dispatch(CANCEL());
     } else {
       dispatch(OK(stateID, stateTitle, stateColor));
