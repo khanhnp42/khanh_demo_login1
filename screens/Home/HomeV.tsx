@@ -1,5 +1,4 @@
-/* eslint-disable react-native/no-inline-styles */
-import React, {useState} from 'react';
+import React from 'react';
 import {View, Text} from 'react-native';
 import styles from './Home.styles';
 import {useDispatch, useSelector} from 'react-redux';
@@ -13,10 +12,6 @@ import {LogOut, EDIT, DELETE, ADD} from '../../redux/actions/Home.act';
 import MealList from '../../components/MealList';
 
 const HomeV = () => {
-  const [edit, setEdit] = useState('');
-  const [textAddorEdit, setTextAddorEdit] = useState('ADD');
-  const [getID, setGetID] = useState('');
-
   const ArrayObj = useSelector((state: any) => state.Home.obj);
 
   const dispatch = useDispatch();
@@ -26,27 +21,17 @@ const HomeV = () => {
   };
 
   const onClick = () => {
-    if (edit != '') {
-      if (textAddorEdit === 'ADD') {
-        dispatch(ADD(edit));
-      } else {
-        dispatch(EDIT(getID, edit));
-      }
-      setEdit('');
-      setTextAddorEdit('ADD');
-    }
+    dispatch(ADD());
   };
 
   const renderItem = (dataItem: any) => {
     let id = dataItem.item.id;
+
     const onClickEdit = () => {
-      setGetID(id);
-      setEdit(dataItem.item.title);
-      setTextAddorEdit('UPDATE');
+      dispatch(EDIT(id, dataItem.item.title, dataItem.item.color));
     };
+
     const onClickDelete = () => {
-      setEdit('');
-      setTextAddorEdit('ADD');
       dispatch(DELETE(id));
     };
     return (
@@ -65,13 +50,9 @@ const HomeV = () => {
           <Text>Log Out</Text>
         </TouchableOpacity>
         <View style={styles.TextInputContainer}>
-          <TextInput
-            style={styles.TextInput}
-            onChangeText={(text) => setEdit(text)}
-            value={edit}
-          />
+          <TextInput style={styles.TextInput} />
           <TouchableOpacity style={styles.buttonClick} onPress={onClick}>
-            <Text>{textAddorEdit}</Text>
+            <Text>ADD</Text>
           </TouchableOpacity>
         </View>
       </View>

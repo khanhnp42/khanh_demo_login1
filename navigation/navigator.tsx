@@ -2,10 +2,11 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+import {useSelector} from 'react-redux';
 
 import LoginVM from '../screens/Login/LoginVM';
 import HomeVM from '../screens/Home/HomeVM';
-import {useSelector} from 'react-redux';
+import MealScreenVM from '../screens/TheMealList/MealScreenVM';
 
 const Navigator = () => {
   const isAuthenticated = useSelector(
@@ -15,7 +16,13 @@ const Navigator = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {isAuthenticated ? (
+        {isAuthenticated === 1 ? (
+          <Stack.Screen
+            options={{headerShown: false}}
+            name="Login"
+            component={LoginVM}
+          />
+        ) : isAuthenticated === 2 ? (
           <Stack.Screen
             name="Home"
             options={{headerShown: false}}
@@ -23,9 +30,9 @@ const Navigator = () => {
           />
         ) : (
           <Stack.Screen
+            name="MealScreen"
             options={{headerShown: false}}
-            name="Login"
-            component={LoginVM}
+            component={MealScreenVM}
           />
         )}
       </Stack.Navigator>
