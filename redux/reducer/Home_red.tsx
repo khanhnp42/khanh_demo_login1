@@ -1,14 +1,15 @@
 import produce from 'immer';
-import {AsyncStorage} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import * as types from '../constants/home.const';
-import * as types1 from '../constants/meal.const';
+import * as types1 from '../constants/todo.const';
 import {LOGIN_SUCCESSED} from '../constants/login.const';
 import {CATEGORIES} from '../../data/dummy-data';
 
 interface Props {
-  isAuthenticated: number;
+  isAuthenticated: boolean;
   obj: Array<{id: string; title: string; color: any}>;
+  search: Array<{id: string; title: string; color: any}>;
   id: string;
   title: string;
   color: any;
@@ -17,8 +18,9 @@ interface Props {
 }
 
 const initialState: Props = {
-  isAuthenticated: 1,
+  isAuthenticated: true,
   obj: CATEGORIES,
+  search: CATEGORIES,
   id: '',
   title: '',
   color: '',
@@ -26,13 +28,20 @@ const initialState: Props = {
   idMax: 0,
 };
 
-const findIDmax = (obj: any) => {
-  let element;
-  for (let i = 0; i < obj.length - 1; i++) {
-    element = obj[i].id > obj[i + 1].id ? obj[i].id : obj[i + 1].id;
+const onSearch = (title: any, obj: any, search: any) => {
+  if (title === '') {
+    return search;
   }
-  // eslint-disable-next-line radix
-  return parseInt(element) + 1;
+  let newObj: any[] = [];
+  for (let i = 0; i < obj.length; i++) {
+    const element = obj[i].title.toLowerCase();
+    if (element.includes(title.toLowerCase())) {
+      newObj = newObj.concat([
+        {id: obj[i].id, title: obj[i].title, color: obj[i].color},
+      ]);
+    }
+  }
+  return newObj;
 };
 
 export const Home_red = (state = initialState, action: any) =>
@@ -40,30 +49,23 @@ export const Home_red = (state = initialState, action: any) =>
     switch (action.type) {
       case types.LOGOUT:
         AsyncStorage.removeItem('token');
-        draft.isAuthenticated = 1;
+        draft.isAuthenticated = true;
         break;
+
       case LOGIN_SUCCESSED:
-        draft.isAuthenticated = 2;
+        draft.isAuthenticated = false;
         break;
-      case types.ADD:
-        draft.id = '';
-        draft.title = '';
-        draft.color = '';
-        draft.isAdd = true;
-        draft.idMax = findIDmax(state.obj);
-        draft.isAuthenticated = 3;
-        break;
-      case types.EDIT:
-        draft.id = action.id;
-        draft.title = action.title;
-        draft.color = action.color;
-        draft.isAdd = false;
-        draft.isAuthenticated = 3;
-        break;
+
       case types.DELETE:
-        // eslint-disable-next-line eqeqeq
-        draft.obj = state.obj.filter((a) => a.id != action.id);
+        draft.obj = state.obj.filter((a) => a.id !== action.id);
+        draft.search = draft.obj;
         break;
+
+      case types.SEARCH:
+        draft.obj = draft.search;
+        draft.obj = onSearch(action.title, state.obj, state.search);
+        break;
+
       case types1.OK:
         if (draft.isAdd) {
           draft.obj = state.obj.concat([
@@ -71,16 +73,15 @@ export const Home_red = (state = initialState, action: any) =>
           ]);
         } else {
           draft.obj = state.obj
-            // eslint-disable-next-line eqeqeq
-            .filter((a) => a.id != action.id)
+            .filter((a) => a.id !== action.id)
             .concat([
               {id: action.id, title: action.title, color: action.color},
             ]);
         }
-        draft.isAuthenticated = 2;
+        draft.search = draft.obj;
         break;
+
       case types1.CANCEL:
-        draft.isAuthenticated = 2;
         break;
       default:
         return state;

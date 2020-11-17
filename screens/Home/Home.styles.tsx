@@ -11,8 +11,9 @@ const styles = StyleSheet.create({
     width: 150,
   },
   icon: {
-    paddingVertical: 2,
-    paddingHorizontal: 5,
+    paddingVertical: 0,
+    paddingHorizontal: 15,
+    fontSize: 30,
   },
   item: {
     flex: 1,

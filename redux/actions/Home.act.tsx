@@ -1,5 +1,4 @@
 import * as types from '../constants/home.const';
-// import * as types1 from '../constants/meal.const';
 
 export const LogOut = () => {
   return {
@@ -9,6 +8,12 @@ export const LogOut = () => {
 export const ADD = () => {
   return {
     type: types.ADD,
+  };
+};
+export const SEARCH = (title: any) => {
+  return {
+    type: types.SEARCH,
+    title,
   };
 };
 export const EDIT = (id: any, title: any, color: any) => {
