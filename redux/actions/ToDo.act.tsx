@@ -1,4 +1,4 @@
-import * as types from '../constants/meal.const';
+import * as types from '../constants/todo.const';
 
 export const OK = (id: any, title: any, color: any) => {
   return {

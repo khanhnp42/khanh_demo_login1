@@ -1,9 +1,10 @@
 import {View, Text, TouchableOpacity} from 'react-native';
-import styles from '../screens/Home/Home.styles';
 import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const MealList = (props: any) => {
+import styles from '../Home/Home.styles';
+
+const ToDoList = (props: any) => {
   return (
     <View>
       <View style={styles.item}>
@@ -19,4 +20,4 @@ const MealList = (props: any) => {
   );
 };
 
-export default MealList;
+export default ToDoList;

@@ -4,9 +4,9 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {useSelector} from 'react-redux';
 
-import LoginVM from '../screens/Login/LoginVM';
-import HomeVM from '../screens/Home/HomeVM';
-import MealScreenVM from '../screens/TheMealList/MealScreenVM';
+import LoginV from '../screens/Login/LoginV';
+import HomeV from '../screens/Home/HomeV';
+import ToDoScreenV from '../screens/ToDo/ToDoScreenV';
 
 const Navigator = () => {
   const isAuthenticated = useSelector(
@@ -16,25 +16,24 @@ const Navigator = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {isAuthenticated === 1 ? (
+        {isAuthenticated ? (
           <Stack.Screen
             options={{headerShown: false}}
             name="Login"
-            component={LoginVM}
-          />
-        ) : isAuthenticated === 2 ? (
-          <Stack.Screen
-            name="Home"
-            options={{headerShown: false}}
-            component={HomeVM}
+            component={LoginV}
           />
         ) : (
           <Stack.Screen
-            name="MealScreen"
+            name="Home"
             options={{headerShown: false}}
-            component={MealScreenVM}
+            component={HomeV}
           />
         )}
+        <Stack.Screen
+          name="ToDo"
+          options={{headerShown: false}}
+          component={ToDoScreenV}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

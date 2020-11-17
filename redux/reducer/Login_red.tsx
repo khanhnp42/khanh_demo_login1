@@ -1,5 +1,6 @@
-import * as types from '../constants/login.const';
 import product from 'immer';
+
+import * as types from '../constants/login.const';
 
 const initalState = {
   loading: false,

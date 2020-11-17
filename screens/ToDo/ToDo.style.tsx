@@ -12,11 +12,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 25,
     backgroundColor: 'pink',
-    margin: 15,
+    marginTop: 15,
     height: 150,
     width: 300,
     borderRadius: 10,
-    overflow: 'hidden',
   },
   textIP1: {
     fontSize: 20,
