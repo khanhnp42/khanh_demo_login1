@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback} from 'react';
 import {View, Text, TextInput, Image, TouchableHighlight} from 'react-native';
 import {useDispatch} from 'react-redux';
 
@@ -14,13 +14,14 @@ const LoginV = () => {
     dispatch(LoginRequested(username, password));
   };
 
-  const handleChangeUserName = (text: any) => {
+  const handleChangeUserName = useCallback((text: any) => {
     setUsername(text);
-  };
+  }, []);
 
-  const handleChangePassword = (text: any) => {
+  const handleChangePassword = useCallback((text: any) => {
     setPassword(text);
-  };
+  }, []);
+
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>

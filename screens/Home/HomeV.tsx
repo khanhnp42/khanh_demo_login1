@@ -1,5 +1,5 @@
 /* eslint-disable radix */
-import React from 'react';
+import React, { useCallback } from 'react';
 import {View, Text} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {
@@ -10,7 +10,14 @@ import {
 import {CommonActions} from '@react-navigation/native';
 
 import styles from './Home.styles';
-import {LogOut, DELETE, ADD, EDIT, SEARCH} from '../../redux/actions/Home.act';
+import {
+  LogOut,
+  DELETE,
+  ADD,
+  EDIT,
+  SEARCH,
+  CHECKED,
+} from '../../redux/actions/Home.act';
 import ToDoList from '../components/ToDoList';
 
 const HomeV = (props: any) => {
@@ -30,9 +37,12 @@ const HomeV = (props: any) => {
     return parseInt(element) + 1;
   };
 
-  const onSearch = (data: any) => {
-    dispatch(SEARCH(data));
-  };
+  const onSearch = useCallback(
+    (data: any) => {
+      dispatch(SEARCH(data));
+    },
+    [dispatch],
+  );
 
   const onClickADD = () => {
     dispatch(ADD());
@@ -49,21 +59,25 @@ const HomeV = (props: any) => {
 
   const renderItem = (dataItem: any) => {
     let id = dataItem.item.id;
+    let title = dataItem.item.title;
+    let color = dataItem.item.color;
 
     const onClickDelete = () => {
       dispatch(DELETE(id));
     };
 
     const onClickEdit = () => {
-      dispatch(
-        EDIT(dataItem.item.id, dataItem.item.title, dataItem.item.color),
-      );
+      dispatch(EDIT(id, title, color));
       props.navigation.navigate('ToDo', {
-        id: dataItem.item.id,
+        id: id,
         idMax: '',
-        title: dataItem.item.title,
-        color: dataItem.item.color,
+        title: title,
+        color: color,
       });
+    };
+
+    const onChecked = () => {
+      // dispatch(CHECKED(id));
     };
 
     return (
@@ -72,6 +86,7 @@ const HomeV = (props: any) => {
         title={dataItem.item.title}
         onClickDelete={onClickDelete}
         onClickEdit={onClickEdit}
+        onChecked={onChecked}
       />
     );
   };

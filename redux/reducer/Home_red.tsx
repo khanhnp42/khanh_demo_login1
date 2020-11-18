@@ -15,6 +15,8 @@ interface Props {
   color: any;
   isAdd: boolean;
   idMax: number;
+  isChecked: boolean;
+  nameIcon: string;
 }
 
 const initialState: Props = {
@@ -26,6 +28,8 @@ const initialState: Props = {
   color: '',
   isAdd: false,
   idMax: 0,
+  isChecked: false,
+  nameIcon: 'ellipse-outline', //chevron-down-circle-outline ellipse-outline
 };
 
 const onSearch = (title: any, obj: any, search: any) => {
@@ -64,6 +68,10 @@ export const Home_red = (state = initialState, action: any) =>
       case types.SEARCH:
         draft.obj = draft.search;
         draft.obj = onSearch(action.title, state.obj, state.search);
+        break;
+
+      case types.CHECKED:
+        draft.isChecked = !state.isChecked;
         break;
 
       case types1.OK:

@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     fontSize: 30,
   },
+
   item: {
     flex: 1,
     flexDirection: 'row',
@@ -30,6 +31,19 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
   },
+
+  item1: {
+    flex: 1,
+    flexDirection: 'row',
+    marginTop: 24,
+    padding: 35,
+    backgroundColor: 'red',
+    fontSize: 30,
+    marginHorizontal: 20,
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+  },
+
   TextInputContainer: {
     flexDirection: 'row',
     width: '90%',
@@ -43,6 +57,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   TextTitle: {
+    // backgroundColor: 'red',
     fontSize: 20,
   },
   buttonClick: {
