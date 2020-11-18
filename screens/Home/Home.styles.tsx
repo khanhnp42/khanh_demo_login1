@@ -5,6 +5,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
 
+  viewLogOut: {
+    marginTop: 30,
+  },
+
   buttonLogout: {
     marginLeft: 300,
     padding: 35,
@@ -47,6 +51,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     marginLeft: 30,
     fontSize: 20,
+  },
+  viewFlatlist: {
+    width: '100%',
+    marginTop: 10,
   },
 });
 

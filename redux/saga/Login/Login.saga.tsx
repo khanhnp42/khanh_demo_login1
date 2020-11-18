@@ -6,18 +6,18 @@ import {LoginSuccessed, LoginFailed} from '../../actions/Login.act';
 import * as types from '../../constants/login.const';
 
 export function* loginSaga(action: any) {
-  const getUrl = 'https://5f96851a11ab98001603ac14.mockapi.io/khanhnp';
+  // const getUrl = 'https://5f96851a11ab98001603ac14.mockapi.io/khanhnp';
   try {
-    // const data = yield call(axios.request, {
-    //   url: getUrl,
-    //   method: 'POST',
-    //   data: {
-    //     username: action.data.username,
-    //     password: action.data.password,
-    //   },
-    // });
-    // if (data) {
-    //   AsyncStorage.setItem('token', data.data.token);
+    //   const data = yield call(axios.request, {
+    //     url: getUrl,
+    //     method: 'POST',
+    //     data: {
+    //       username: action.data.username,
+    //       password: action.data.password,
+    //     },
+    //   });
+    //   if (data) {
+    //     AsyncStorage.setItem('token', data.data.token);
     yield put(LoginSuccessed('6'));
     // }
   } catch (error) {

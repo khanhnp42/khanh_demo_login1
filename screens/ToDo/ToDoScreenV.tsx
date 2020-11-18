@@ -1,69 +1,35 @@
+/* eslint-disable no-shadow */
 import {View, Text, TouchableOpacity} from 'react-native';
-import React, {useEffect, useCallback, useMemo} from 'react';
+import React, {useState} from 'react';
 import {TextInput} from 'react-native-gesture-handler';
 import {useDispatch} from 'react-redux';
-import {useForm} from 'react-hook-form';
-import * as yup from 'yup';
-import {yupResolver} from '@hookform/resolvers/yup';
 import {useRoute} from '@react-navigation/native';
 
 import styles from '../ToDo/ToDo.style';
 import {OK} from '../../redux/actions/ToDo.act';
 
-const signInschema = yup.object().shape({
-  title: yup.string().min(1, 'text sort').required('text null'),
-  color: yup.string().min(1).required(),
-});
-
 const ToDoScreenV = (props: any) => {
   const route: any = useRoute();
   const dispatch = useDispatch();
-  let id = route.params.id;
-  let title = route.params.title;
-  let color = route.params.color;
+  let id = route.params.id === '' ? route.params.idMax : route.params.id;
+  const [title, setTitle] = useState(id === '' ? '' : route.params.title);
+  const [color, setColor] = useState(id === '' ? '' : route.params.color);
 
-  let idMax = route.params.idMax;
-  let add = 1;
+  const handleOnChangeTitle = (title: any) => {
+    setTitle(title);
+  };
 
-  if (id === '') {
-    id = idMax + '';
-    add = 1;
-  } else {
-    add = 2;
-  }
+  const handleOnChangeColor = (color: any) => {
+    setColor(color);
+  };
 
-  const defaultValues = useMemo(() => {
-    if (add === 2) {
-      return {
-        title: title,
-        color: color,
-      };
-    }
-    return {
-      title: '',
-      color: '',
-    };
-  }, [add, color, title]);
-
-  const {register, handleSubmit, setValue} = useForm({
-    resolver: yupResolver(signInschema),
-    defaultValues: defaultValues,
-  });
-  useEffect(() => {
-    register('title');
-    register('color');
-  }, [register]);
-
-  const onClickOk = useCallback(
-    async (data: any) => {
-      dispatch(OK(id, data.title, data.color));
-      props.navigation.navigate('Home');
-    },
-    [dispatch, id, props.navigation],
-  );
+  const onClickOk = () => {
+    dispatch(OK(id, title, color));
+    props.navigation.goBack();
+  };
 
   const onClickCanCel = () => {
-    props.navigation.navigate('Home');
+    props.navigation.goBack();
   };
   return (
     <View style={styles.all}>
@@ -72,22 +38,18 @@ const ToDoScreenV = (props: any) => {
         <TextInput
           style={styles.textIP2}
           placeholder="title"
-          defaultValue={add === 2 ? title : ''}
-          onChangeText={(text) => setValue('title', text)}
-          ref={register}
+          defaultValue={title}
+          onChangeText={handleOnChangeTitle}
         />
         <TextInput
           style={styles.textIP3}
           placeholder="color"
-          defaultValue={add === 2 ? color : ''}
-          onChangeText={(text) => setValue('color', text)}
-          ref={register}
+          defaultValue={color}
+          onChangeText={handleOnChangeColor}
         />
       </View>
       <View style={styles.touchableOpacity}>
-        <TouchableOpacity
-          onPress={handleSubmit(onClickOk)}
-          style={styles.touch1}>
+        <TouchableOpacity onPress={onClickOk} style={styles.touch1}>
           <Text style={styles.text}>OK</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={onClickCanCel} style={styles.touch1}>
