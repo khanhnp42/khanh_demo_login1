@@ -1,6 +1,6 @@
 /* eslint-disable no-shadow */
 import {View, Text, TouchableOpacity} from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useCallback} from 'react';
 import {TextInput} from 'react-native-gesture-handler';
 import {useDispatch} from 'react-redux';
 import {useRoute} from '@react-navigation/native';
@@ -15,13 +15,13 @@ const ToDoScreenV = (props: any) => {
   const [title, setTitle] = useState(id === '' ? '' : route.params.title);
   const [color, setColor] = useState(id === '' ? '' : route.params.color);
 
-  const handleOnChangeTitle = (title: any) => {
+  const handleOnChangeTitle = useCallback((title: any) => {
     setTitle(title);
-  };
+  }, []);
 
-  const handleOnChangeColor = (color: any) => {
+  const handleOnChangeColor = useCallback((color: any) => {
     setColor(color);
-  };
+  }, []);
 
   const onClickOk = () => {
     dispatch(OK(id, title, color));

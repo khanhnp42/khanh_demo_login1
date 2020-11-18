@@ -1,21 +1,38 @@
 import {View, Text, TouchableOpacity} from 'react-native';
-import React from 'react';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import React, {useState} from 'react';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 import styles from '../Home/Home.styles';
-
 const ToDoList = (props: any) => {
+  const [isChecked, setisChecked] = useState(false);
+  const onChecked = () => {
+    setisChecked(!isChecked);
+  };
   return (
     <View>
-      <View style={styles.item}>
+      <TouchableOpacity
+        style={isChecked === false ? styles.item : styles.item1}>
+        <TouchableOpacity onPress={onChecked}>
+          <Icon
+            style={styles.icon}
+            name={
+              isChecked === false
+                ? 'ellipse-outline'
+                : 'checkmark-circle-outline'
+            }
+          />
+        </TouchableOpacity>
+
         <Text style={styles.TextTitle}>{props.title}</Text>
+
         <TouchableOpacity onPress={props.onClickEdit}>
-          <Ionicons style={styles.icon} name="chatbox-ellipses-outline" />
+          <Icon style={styles.icon} name="chatbox-ellipses-outline" />
         </TouchableOpacity>
+
         <TouchableOpacity onPress={props.onClickDelete}>
-          <Ionicons style={styles.icon} name="beer-outline" />
+          <Icon style={styles.icon} name="beer-outline" />
         </TouchableOpacity>
-      </View>
+      </TouchableOpacity>
     </View>
   );
 };

@@ -30,3 +30,10 @@ export const DELETE = (id: any) => {
     id,
   };
 };
+
+export const CHECKED = (id: any) => {
+  return {
+    type: types.CHECKED,
+    id,
+  };
+};
