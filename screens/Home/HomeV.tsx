@@ -1,3 +1,4 @@
+/* eslint-disable radix */
 import React from 'react';
 import {View, Text} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
@@ -76,7 +77,7 @@ const HomeV = (props: any) => {
   };
   return (
     <View>
-      <View style={{marginTop: 30}}>
+      <View style={styles.viewLogOut}>
         <TouchableOpacity style={styles.buttonLogout} onPress={logOut}>
           <Text>Log Out</Text>
         </TouchableOpacity>
@@ -88,11 +89,11 @@ const HomeV = (props: any) => {
         </View>
       </View>
 
-      <View style={{width: '100%', marginTop: 10}}>
+      <View style={styles.viewFlatlist}>
         <FlatList
           data={ArrayObj}
           renderItem={renderItem}
-          keyExtractor={(item: any) => item.id}
+          keyExtractor={(item: any) => item.id.toString()}
         />
       </View>
     </View>

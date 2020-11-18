@@ -15,26 +15,29 @@ const Navigator = () => {
   const Stack = createStackNavigator();
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        {isAuthenticated ? (
+      {isAuthenticated ? (
+        <Stack.Navigator>
           <Stack.Screen
             options={{headerShown: false}}
             name="Login"
             component={LoginV}
           />
-        ) : (
+        </Stack.Navigator>
+      ) : (
+        <Stack.Navigator>
           <Stack.Screen
             name="Home"
             options={{headerShown: false}}
             component={HomeV}
           />
-        )}
-        <Stack.Screen
-          name="ToDo"
-          options={{headerShown: false}}
-          component={ToDoScreenV}
-        />
-      </Stack.Navigator>
+
+          <Stack.Screen
+            name="ToDo"
+            options={{headerShown: false}}
+            component={ToDoScreenV}
+          />
+        </Stack.Navigator>
+      )}
     </NavigationContainer>
   );
 };
